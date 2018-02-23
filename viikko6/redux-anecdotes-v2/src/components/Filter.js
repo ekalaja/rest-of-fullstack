@@ -1,7 +1,6 @@
 import React from 'react'
 import { newFilter } from '../reducers/filterReducer'
 import { connect } from 'react-redux'
-import { newNotification } from '../reducers/notificationReducer'
 
 class Filter extends React.Component {
   handleChange = (event) => {

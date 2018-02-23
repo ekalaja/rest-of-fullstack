@@ -27,7 +27,6 @@ const anecdoteReducer = (store = initialState, action) => {
     return [...old, { ...voted, votes: voted.votes+1 } ]
   }
   if (action.type === 'CREATE') {
-    console.log('CREATE KÄYNTIIN')
 
     return [...store, { content: action.content, id: getId(), votes:0 }]
   }
@@ -36,7 +35,6 @@ const anecdoteReducer = (store = initialState, action) => {
 }
 
 export const anecdoteCreation = (content) => {
-  console.log('CONTENTTIA',content)
   return {
     type: 'CREATE',
     content: content
