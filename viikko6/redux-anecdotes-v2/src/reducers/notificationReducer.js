@@ -1,4 +1,4 @@
-const startingNotification = 'If it hurts, it hurts'
+const startingNotification = ''
 
 const notificationReducer = (store = startingNotification, action) => {
   if (action.type === 'NOTIFICATION') {

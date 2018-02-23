@@ -2,6 +2,12 @@ import React from 'react'
 import { anecdoteVote } from './../reducers/anecdoteReducer'
 import Filter from './Filter'
 import { connect } from 'react-redux'
+import anecdoteService from '../services/anecdotes'
+
+const voteClick =  (props, anecdote) => {
+  return async () => { await anecdoteService.vote(anecdote.id, anecdote)
+    props.anecdoteVote(anecdote.id)}
+}
 
 
 /*class AnecdoteList extends React.Component {*/
@@ -13,9 +19,7 @@ const AnecdoteList = (props) => {
       </div>
       <div>
         has {anecdote.votes}
-        <button onClick={() =>
-          props.anecdoteVote(anecdote.id)
-        }>
+        <button onClick={voteClick(props, anecdote)}>
           vote
         </button>
       </div>
@@ -29,8 +33,12 @@ const AnecdoteList = (props) => {
 }
 
 const anecdotesToShow = (anecdotes, filter) => {
-  const filteredAnecdotes = anecdotes.filter(anecdote => anecdote.content.includes(filter))
-  return filteredAnecdotes
+  if (anecdotes.size === 0) {
+    return anecdotes
+  } else {
+    const filteredAnecdotes = anecdotes.filter(anecdote => anecdote.content.includes(filter))
+    return filteredAnecdotes
+  }
 }
 
 
