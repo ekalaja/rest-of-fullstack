@@ -1,16 +1,18 @@
 import React from 'react'
 import { anecdoteCreation } from './../reducers/anecdoteReducer'
 import { newNotification } from './../reducers/notificationReducer'
+import { connect } from 'react-redux'
 
 
 class AnecdoteForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const content = e.target.anecdote.value
-    this.props.store.dispatch(anecdoteCreation(content))
-    this.props.store.dispatch(newNotification(content))
+    /* HUOM! ilman this.props. alkua käyttää suoraan importtia, jossa ei dispatchia*/
+    this.props.anecdoteCreation(content)
+    this.props.newNotification(content)
     setTimeout(() => {
-      this.props.store.dispatch(newNotification(''))
+      this.props.newNotification('')
     }, 5000)
     /*this.props.store.dispatch({
       type: 'CREATE',
@@ -30,5 +32,10 @@ class AnecdoteForm extends React.Component {
     )
   }
 }
-
-export default AnecdoteForm
+const ConnectedForm = connect(
+  null,
+  { anecdoteCreation,
+    newNotification
+  }
+)(AnecdoteForm)
+export default ConnectedForm
