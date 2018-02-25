@@ -32,12 +32,13 @@
     },
     {
       "content": "kukka kasvaa laitumella",
-      "id": "bP8aLPO"
+      "id": "bP8aLPO",
+      "votes": 10
     },
     {
       "content": "Lammas syö sen",
       "id": "rUAXaMQ",
-      "votes": 4
+      "votes": 6
     },
     {
       "content": "Susi syö lampaan",
@@ -45,17 +46,14 @@
       "votes": 0
     },
     {
-      "content": "Porsas syö suden",
-      "id": "jRWbpV4"
-    },
-    {
-      "content": "Hienoa",
-      "id": "GKQQXmN"
-    },
-    {
       "content": "viela yksi",
       "id": "gdq0McK",
       "votes": 0
+    },
+    {
+      "content": "aivan uusi",
+      "id": "ck9sT4V",
+      "votes": 2
     }
   ]
 }

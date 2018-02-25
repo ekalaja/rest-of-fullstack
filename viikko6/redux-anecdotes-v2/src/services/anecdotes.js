@@ -13,7 +13,9 @@ const createNew = async (content) => {
 }
 
 const vote = async (id, newContent) => {
-  const response = axios.put(`${url}/${id}`, newContent)
+  console.log('content SERVICESSÄ', newContent)
+  const response = await axios.put(`${url}/${id}`, newContent)
+  console.log('vastaus: ',response)
   return response.data
 }
 

@@ -5,14 +5,13 @@ import { connect } from 'react-redux'
 import anecdoteService from '../services/anecdotes'
 
 const voteClick =  (props, anecdote) => {
-  return async () => { await anecdoteService.vote(anecdote.id, anecdote)
+  const votedAnecdote = { ...anecdote, votes: anecdote.votes +1 }
+  return async () => { await anecdoteService.vote(anecdote.id, votedAnecdote)
     props.anecdoteVote(anecdote.id)}
 }
 
-
-/*class AnecdoteList extends React.Component {*/
 const AnecdoteList = (props) => {
-  const kukka = props.anecdotes.sort((a, b) => b.votes - a.votes).map(anecdote =>
+  const sortedList = props.anecdotes.sort((a, b) => b.votes - a.votes).map(anecdote =>
     <div key={anecdote.id}>
       <div>
         {anecdote.content}
@@ -28,7 +27,7 @@ const AnecdoteList = (props) => {
   return (
     <div>
       <Filter/>
-      <div>{kukka}</div>
+      <div>{sortedList}</div>
     </div>)
 }
 
