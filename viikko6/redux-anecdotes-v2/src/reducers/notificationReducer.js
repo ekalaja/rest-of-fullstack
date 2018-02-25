@@ -14,4 +14,21 @@ export const newNotification = (content) => {
     content: content
   }
 }
+
+export const notify = (data, timeParam) => {
+  return async (dispatch) => {
+    dispatch({
+      type: 'NOTIFICATION',
+      content: data
+    })
+
+    setTimeout(() => {
+      dispatch({
+        type: 'NOTIFICATION',
+        content: ''
+      })
+    }, timeParam*1000)
+  }
+}
+
 export default notificationReducer

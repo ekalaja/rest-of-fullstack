@@ -1,16 +1,16 @@
+import anecdoteService from '../services/anecdotes'
+
 const anecdoteReducer = (state = [], action) => {
   if (action.type==='VOTE') {
-    console.log('äänestys REDUCERISSA!')
-    const old = state.filter(a => a.id !==action.id)
-    const voted = state.find(a => a.id === action.id)
-    return [...old, { ...voted, votes: voted.votes + 1 } ]
+    const old = state.filter(a => a.id !==action.anecdote.id)
+    return [...old, action.anecdote]
+    /*    return [...old, { ...voted, votes: voted.votes + 1 } ]
+*/
   }
   if (action.type === 'CREATE') {
-    console.log('ACTION: ', action)
     return [...state, { content: action.data.content, id: action.data.id, votes: 0 }]
   }
   if (action.type === 'INIT') {
-    console.log('INIT KÄYNTIIN')
     return action.data
   }
 
@@ -18,27 +18,43 @@ const anecdoteReducer = (state = [], action) => {
 }
 
 
-export const anecdoteCreation = (data) => {
+/*export const anecdoteCreation = (data) => {
   return {
     type: 'CREATE',
     data
   }
-}
+}*/
 
-export const anecdoteVote = (id) => {
-  return {
-    type: 'VOTE',
-    id: id
+export const anecdoteCreation = (data) => {
+  return async (dispatch) => {
+    const anecdote = await anecdoteService.createNew(data)
+    dispatch({
+      type: 'CREATE',
+      data: { ...anecdote, votes: 0 }
+    })
   }
 }
 
-export const anecdoteInitialization = (data) => {
-  return {
-    type: 'INIT',
-    data
+export const anecdoteVote = (data) => {
+  return async (dispatch) => {
+    const votedAnecdote = { ...data, votes: data.votes +1 }
+    const anecdote = await anecdoteService.vote(data.id, votedAnecdote)
+    dispatch({
+      type: 'VOTE',
+      anecdote
+    })
   }
 }
 
+export const anecdoteInitialization = () => {
+  return async (dispatch) => {
+    const anecdotes = await anecdoteService.getAll()
+    dispatch({
+      type: 'INIT',
+      data: anecdotes
+    })
+  }
+}
 
 
 export default anecdoteReducer
