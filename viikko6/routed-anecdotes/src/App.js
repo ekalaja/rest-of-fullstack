@@ -1,14 +1,27 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 
-const Menu = () => (
-  <div>
-    <Link to="/">anecdotes</Link> &nbsp;
-    <Link to="/create">create new</Link> &nbsp;
-    <Link to="/about">about</Link> &nbsp;
-  </div>
-)
+const Menu = () => {
+  const menuBoxStyle =  {
+    backgroundColor: 'lightBlue',
+    padding: '10px',
+    border: '5px solid gray',
+    margin: '0'
+  }
+  const menuStyle={
+    fontWeight: 'bold',
+    color: 'blue',
+    backgroundColor: 'lightBlue'
+  }
+  return (
+    <div style={menuBoxStyle}>
+      <NavLink exact activeStyle={menuStyle} to="/">anecdotes</NavLink> &nbsp;
+      <NavLink exact activeStyle={menuStyle} to="/create">create new</NavLink> &nbsp;
+      <NavLink exact activeStyle={menuStyle} to="/about">about</NavLink> &nbsp;
+    </div>)
+}
 
 const AnecdoteList = ({ anecdotes }) => (
   <div>
@@ -35,8 +48,14 @@ const Anecdote = ({anecdote}) => {
 }
 
 const Notification = ({message}) => {
+  const footerStyle = {
+    color: 'green',
+    fontStyle: 'italic',
+    border: 'solid',
+    paddingLeft: '30px',
+  }
   return (
-    <div>
+    <div style={footerStyle}>
       <h3>{message}</h3>
     </div>
   )
@@ -180,7 +199,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Software anecdotes</h1>
-        <Notification message={this.state.notification}/>
+        {this.state.notification === '' ? null : <Notification message={this.state.notification}/>}
         <Router>
           <div>
           <Menu />
